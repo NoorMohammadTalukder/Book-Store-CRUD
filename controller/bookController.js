@@ -53,6 +53,19 @@ exports.BookDelete=async(req,res)=>{
         res.status(500).json({ message: error.message });
       }
 }
+//return 1 specific book based in id
+exports.Find = async (req, res) => {
+    try {
+      const book = await Book.findById(req.params.id);
+      if (book == null) {
+        return res.status(404).json({ message: 'Book not found' });
+      }
+      res.json(book)
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+  
 exports.getBook = async (req, res, next) => {
     try {
       const book = await Book.findById(req.params.id);
